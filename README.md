@@ -3,10 +3,12 @@ About:
     This is a small but mighty application that will generate Tote barcode labels.
 
 How to install:
-    Easily extract all files from the provided archive in any folder.
-    No advanced installation needed.
-
+    No instalation needed. Just run a py file.
+    To build it in executable application run:
+    "pyinstaller C:\\path_to_the_file\alpha_0_2.py"
+    
 How to Use:
+    instruction for running an executable file:
     Run the program by double clicking on executable file.
     Application will welcome you and ask for required data.
     - Start Tote number - Type the number and press Enter
@@ -19,5 +21,6 @@ How to Use:
 
 Limitations:
     1. System will automatically cut batches in 500 labels.(to support printing on the slow machines)
-    2. All labels will start from 'WHTOT' prefix. (If you need another labels comtact WMS Support)
+    2. All labels will start from 'WHTOT' prefix. (If you need another labels contact WMS Support)
     3. To avoid overloading of application it limited to generate 3000 labels at the session.
+    To generate more that 3000 labels just run the application again.
