@@ -1,5 +1,3 @@
-''' to build an application
-pyinstaller C://Users\Administrator\Dropbox\Projects\Python\Barcode_Generator\alpha_0_2.py'''
 
 import code128
 import os
