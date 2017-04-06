@@ -9,6 +9,7 @@ print("Hello \nPlease input start and end numbers for the totes.\nMax number of 
 
 timestamp = '{:%Y-%m-%d_%H-%M-%S}'.format(datetime.datetime.now())
 
+prefix = input('Enter the prefix of the barcode. (e.g WHTOT): ')
 start = int(input('Enter Start Tote Number: '))
 end = int(input('Enter End Tote Number: '))
 requester = input('Who requested? ')
@@ -38,18 +39,18 @@ history_path = 'C:\\Totes\\'
 blank_start = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'\
  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>\
 <html xmlns='http://www.w3.org/1999/xhtml'><head><meta http-equiv='Content-Type' content='text/html;\
- charset=UTF-8'> <title>'WMS:: Print WHTOT barcodes'</title> \
+ charset=UTF-8'> <title>'WMS:: Print barcodes'</title> \
      <link id='Link1' href='_WMSTheme1.css' rel='stylesheet' type='text/css'> </head> <body>"
 
 blank_end = " </body> </html>"
 tote_html = "<div id='divUPC' style='width: 708px; height: 165px'> \
 <table border='0' cellpadding='0' cellspacing='0' style='width: 334px; height: 86px'> <tr> \
 <td style='width: 355px; height: 19px; text-align: center;' valign='middle'> \
-<span class='txthdr_18'>WHTOT{0}</span> \
+<span class='txthdr_18'>{0}</span> \
 </td> </tr> <tr> <td style='width: 500px; height: 160px'> \
-<img src='WHTOT{0}.png' style='width: 360px; height: 130px;'> \
+<img src='{0}.png' style='width: 360px; height: 130px;'> \
 </td> </tr> <tr> <td style='width: 340px; height: 19px; text-align: center;' valign='middle'> \
-<span class='txthdr_18'>WHTOT{0}</span> \
+<span class='txthdr_18'>{0}</span> \
 </td> </tr> </table> </div> <p STYLE='page-break-after: always'>&nbsp;</p>"
 
 
@@ -58,9 +59,9 @@ def create_path():
         os.makedirs(path)
 
 # generate and save images
-def generate_labels(start, end):
+def generate_labels(prefix, start, end):
     for image in range(start, end+1):
-        code128.image("WHTOT{}".format(image), height=238, thickness=7, quiet_zone=True).save("{0}WHTOT{1}.png".format(path, image), compress_level = 6)
+        code128.image(prefix.format(image), height=238, thickness=7, quiet_zone=True).save("{0}{1}{2}.png".format(prefix, path, image), compress_level = 6)
 
 start_list = []
 end_list = []
@@ -96,7 +97,7 @@ def create_history_file(start, end, requester, warehouse, comments):
         create_history_file(start, end, requester, warehouse, comments)
 
 create_path()
-generate_labels(start, end)
+generate_labels(prefix, start, end)
 generate_lists(start, end)
 create_html(start, end)
 create_history_file(start, end, requester, warehouse, comments)
